@@ -1,0 +1,4 @@
+gtk-theme-name="MS-Windows"    
+style "default" {
+	font_name="Simsun"
+}widget_class "*" style "default"
