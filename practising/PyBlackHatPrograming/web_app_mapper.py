@@ -2,13 +2,12 @@
 # @Author: chen
 # @Date:   2016-09-04 21:25:33
 # @Last Modified by:   root
-# @Last Modified time: 2016-09-05 09:30:41
+# @Last Modified time: 2016-09-05 09:36:02
 
 import urllib2
 import threading
 import Queue
 import urllib
-import requests
 
 threads = 10
 tgt_url = 'http://testphp.vulnweb.com'
@@ -55,13 +54,14 @@ def dir_burp(word_queue,extensions=None):
 
 		for burp in attempt_list:
 			url = '%s%s' % (tgt_url,urllib.quote(burp))
-			print('Testing: %s ' % url)
+			# print('Testing: %s ' % url)
 
 			try:
 				headers = {}
 				headers['User-Agent'] = user_agent
+				request = urllib2.Request(url,headers=headers)
 
-				rsp = requests.get(url,headers=headers)
+				rsp = urllib2.urlopen(request)
 				if len(rsp.read()):
 					print('[%d]=> %s' % (rsp.code,url))
 			except urllib2.URLError,e:
